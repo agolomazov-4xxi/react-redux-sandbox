@@ -13,8 +13,19 @@ function* fetchTodoSaga() {
   }
 }
 
+function* updateTodoSaga(action) {
+  yield put(actions.todoUpdateStart());
+  try {
+    const response = yield call(api.todo.updateTodo, action.todo);
+    yield put(actions.todoUpdateSuccess(response.data));
+  } catch (err) {
+    yield put(actions.todoUpdateFail());
+  }
+}
+
 export default function* todoSaga() {
   yield all([
-    takeEvery(types.TODO_FETCH, fetchTodoSaga)
+    takeEvery(types.TODO_FETCH, fetchTodoSaga),
+    takeEvery(types.TODO_UPDATE, updateTodoSaga)
   ]);
 }
