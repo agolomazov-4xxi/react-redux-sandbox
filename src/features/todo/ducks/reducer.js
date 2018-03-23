@@ -61,6 +61,7 @@ const todoDeleteSuccess = (state, action) => {
   const { todo } = action;
 
   const newList = todoList.filter(item => item.id !== todo.id);
+
   return updateObject(state, {
     todoList: newList,
     loading: false

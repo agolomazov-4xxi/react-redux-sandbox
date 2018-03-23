@@ -27,12 +27,17 @@ class TodoList extends Component {
     this.props.updateTodo(item)
   }
 
+  onDeleteHandler = (item) => {
+    this.props.removeTodo(item);
+  }
+
   renderItems = (list) => (
     list.map(item => (
       <TodoItemWrapper key={item.id}>
         <TodoItem
           todo={item}
           onUpdate={ (item) => { this.onUpdateHandler(item) } }
+          onDelete={ (item) => { this.onDeleteHandler(item) } }
         />
       </TodoItemWrapper>
     ))
@@ -54,7 +59,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchAll: () => dispatch(actions.todoFetch()),
-  updateTodo: (todo) => dispatch(actions.todoUpdate(todo))
+  updateTodo: (todo) => dispatch(actions.todoUpdate(todo)),
+  removeTodo: (todo) => dispatch(actions.todoDelete(todo))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoList);

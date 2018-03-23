@@ -16,7 +16,7 @@ function* fetchTodoSaga() {
 function* updateTodoSaga(action) {
   yield put(actions.todoUpdateStart());
   try {
-    const response = yield call(api.todo.updateTodo, action.todo);
+    const response = yield call(api.todo.update, action.todo);
     yield put(actions.todoUpdateSuccess(response.data));
   } catch (err) {
     yield put(actions.todoUpdateFail());
@@ -26,8 +26,8 @@ function* updateTodoSaga(action) {
 function* removeTodoSaga(action) {
   yield put(actions.todoDeleteStart());
   try {
-    yield call(api.todo.delete, action.todo.id);
-    yield put(actions.todoDeleteSuccess(action));
+    yield call(api.todo.remove, action.todo.id);
+    yield put(actions.todoDeleteSuccess(action.todo));
   } catch (err) {
     yield put(actions.todoDeleteFail());
   }

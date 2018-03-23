@@ -5,6 +5,9 @@ const TodoItemWrapper = styled.div`
   display: block;
   padding: 10px;
   border: 1px solid #dedede;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const TodoCheckbox = styled.input.attrs({
@@ -20,12 +23,35 @@ const TodoLabel = styled.label`
   text-decoration: ${props => props.completed ? 'line-through' : 'none'}
 `;
 
+const TodoActions = styled.div`
+  padding: 0 10px;
+`;
+
+const TodoButton = styled.button`
+  border-radius: 4px;
+  font-family: Arial;
+  font-size: 12px;
+  cursor: pointer;
+  color: #fff;
+  background: #c30;
+  border: none;
+  padding: 5px 10px;
+  
+  &:hover {
+    background: #a02902;
+  }
+`;
+
 class TodoItem extends Component {
   onChangeStatusHandler = () => {
     this.props.onUpdate({
       ...this.props.todo,
       completed: !this.props.todo.completed
     })
+  }
+
+  onDeleteHandler = () => {
+    this.props.onDelete(this.props.todo);
   }
 
   render() {
@@ -41,6 +67,9 @@ class TodoItem extends Component {
           />
           { todo.title }
         </TodoLabel>
+        <TodoActions>
+          <TodoButton onClick={this.onDeleteHandler}>x</TodoButton>
+        </TodoActions>
       </TodoItemWrapper>
     );
   }
