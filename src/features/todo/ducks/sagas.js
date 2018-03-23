@@ -23,9 +23,20 @@ function* updateTodoSaga(action) {
   }
 }
 
+function* removeTodoSaga(action) {
+  yield put(actions.todoDeleteStart());
+  try {
+    yield call(api.todo.delete, action.todo.id);
+    yield put(actions.todoDeleteSuccess(action));
+  } catch (err) {
+    yield put(actions.todoDeleteFail());
+  }
+}
+
 export default function* todoSaga() {
   yield all([
     takeEvery(types.TODO_FETCH, fetchTodoSaga),
-    takeEvery(types.TODO_UPDATE, updateTodoSaga)
+    takeEvery(types.TODO_UPDATE, updateTodoSaga),
+    takeEvery(types.TODO_DELETE, removeTodoSaga)
   ]);
 }
