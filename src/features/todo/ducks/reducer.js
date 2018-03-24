@@ -66,11 +66,30 @@ const todoDeleteSuccess = (state, action) => {
     todoList: newList,
     loading: false
   });
-}
+};
 
 const todoDeleteFail = (state, action) => {
   return updateObject(state, { loading: false });
 };
+
+const todoSearchStart = (state, action) => {
+  return updateObject(state, {
+    loading: true,
+  });
+};
+
+const todoSearchSuccess = (state, action) => {
+  return updateObject(state, {
+    loading: false,
+    searchText: action.searchText
+  });
+};
+
+const todoSearchFail = (state, action) => {
+  return updateObject(state, {
+    loading: false
+  });
+}
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -83,6 +102,9 @@ const reducer = (state = initialState, action) => {
     case types.TODO_DELETE_START: return todoDeleteStart(state, action);
     case types.TODO_DELETE_SUCCESS: return todoDeleteSuccess(state, action);
     case types.TODO_DELETE_FAIL: return todoDeleteFail(state, action);
+    case types.TODO_SEARCH_START: return todoSearchStart(state, action);
+    case types.TODO_SEARCH_SUCCESS: return todoSearchSuccess(state, action);
+    case types.TODO_SEARCH_FAIL: return todoSearchFail(state, action);
     default:
       return state;
   }

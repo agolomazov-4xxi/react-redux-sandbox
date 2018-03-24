@@ -1,4 +1,5 @@
 import { call, put, takeEvery, all } from 'redux-saga/effects';
+import { delay } from 'redux-saga';
 import api from '../../../api';
 import * as actions from './actions';
 import * as types from './types';
@@ -33,10 +34,21 @@ function* removeTodoSaga(action) {
   }
 }
 
+function* searchTodoSaga(action) {
+  yield put(actions.todoSearchStart());
+  try {
+    yield delay(2000);
+    yield put(actions.todoSearchSuccess(action.searchText));
+  } catch (err) {
+    yield put(actions.todoSearchFail());
+  }
+}
+
 export default function* todoSaga() {
   yield all([
     takeEvery(types.TODO_FETCH, fetchTodoSaga),
     takeEvery(types.TODO_UPDATE, updateTodoSaga),
-    takeEvery(types.TODO_DELETE, removeTodoSaga)
+    takeEvery(types.TODO_DELETE, removeTodoSaga),
+    takeEvery(types.TODO_SEARCH, searchTodoSaga)
   ]);
 }

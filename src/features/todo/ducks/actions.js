@@ -57,3 +57,23 @@ export const todoDeleteSuccess = (todo) => ({
 export const todoDeleteFail = () => ({
   type: types.TODO_DELETE_FAIL
 });
+
+
+// SEARCH DATA
+export const todoSearch = (searchText) => ({
+  type: types.TODO_SEARCH,
+  searchText
+});
+
+export const todoSearchStart = () => ({
+  type: types.TODO_SEARCH_START
+});
+
+export const todoSearchSuccess = (searchText) => ({
+  type: types.TODO_SEARCH_SUCCESS,
+  searchText
+});
+
+export const todoSearchFail = () => ({
+  type: types.TODO_SEARCH_FAIL
+});
