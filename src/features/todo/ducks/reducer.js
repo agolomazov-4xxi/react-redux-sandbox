@@ -48,7 +48,7 @@ const todoUpdateSuccess = (state, action) => {
   return updateObject(state, {
     todoList: newList,
     loading: false
-  })
+  });
 };
 
 // DELETE DATA
@@ -89,7 +89,7 @@ const todoSearchFail = (state, action) => {
   return updateObject(state, {
     loading: false
   });
-}
+};
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
