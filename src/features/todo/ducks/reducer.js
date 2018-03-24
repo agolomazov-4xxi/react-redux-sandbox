@@ -14,7 +14,7 @@ const todoFetchStart = (state, action) => {
 
 const todoFetchSuccess = (state, action) => {
   return updateObject(state, {
-    todoList: action.todoList,
+    todoList: action.payload,
     loading: false
   });
 };
@@ -34,12 +34,12 @@ const todoUpdateFail = (state, action) => {
 
 const todoUpdateSuccess = (state, action) => {
   const { todoList } = state;
-  const { todo } = action;
+  const { payload } = action;
   const newList = todoList.map(item => {
-    if (item.id === todo.id) {
+    if (item.id === payload.id) {
       return {
         ...item,
-        ...todo
+        ...payload
       };
     }
     return item;
@@ -58,9 +58,9 @@ const todoDeleteStart = (state, action) => {
 
 const todoDeleteSuccess = (state, action) => {
   const { todoList } = state;
-  const { todo } = action;
+  const { payload } = action;
 
-  const newList = todoList.filter(item => item.id !== todo.id);
+  const newList = todoList.filter(item => item.id !== payload.id);
 
   return updateObject(state, {
     todoList: newList,
@@ -81,7 +81,7 @@ const todoSearchStart = (state, action) => {
 const todoSearchSuccess = (state, action) => {
   return updateObject(state, {
     loading: false,
-    searchText: action.searchText
+    searchText: action.payload
   });
 };
 
